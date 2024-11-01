@@ -55,6 +55,7 @@ function makeSound(key){
         break;
         default : console.log(key);
     }
+
 }
 
 function buttonAnimation(currentKey){
