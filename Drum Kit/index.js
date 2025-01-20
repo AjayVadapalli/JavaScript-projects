@@ -10,6 +10,7 @@ function onclick(){
         this.style.color = originalColor
     }.bind(this), 100);
 }
+
 var c = document.querySelectorAll(".drum").length;
 var i=0;
 while(i<c){
@@ -54,6 +55,7 @@ function makeSound(key){
         break;
         default : console.log(key);
     }
+
 }
 
 function buttonAnimation(currentKey){
