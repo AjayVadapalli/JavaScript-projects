@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Frontend Mentor | Conference Ticket Generator</title>
+  </head>
+  <body>
+    <header>
+      <img src="./assets/images/logo-full.svg" alt="logo" />
+    </header>
+    <main>
+      <section class="first-section">
+        <h1>Your Journey to Coding Conf 2025 Starts Here!</h1>
+        <p>Secure your spot at next year's biggest coding conference</p>
+
+        <form action="#" id="form">
+          <div id="upload-group">
+            <p class="upload-text">Upload Avatar</p>
+            <label for="upload-label" id="label">
+              <input
+                type="file"
+                id="upload-label"
+                name="avatar"
+                accept="image/png, image/jpeg, image/jpg"
+              />
+              <div id="upload-content">
+                <span class="img-container">
+                  <img
+                    src="./assets/images/icon-upload.svg"
+                    alt="upload icon"
+                    id="upload-icon"
+                  />
+                  <img
+                    src="./assets/images/image-avatar.jpg"
+                    alt="avatar"
+                    id="uploaded-img"
+                  />
+                </span>
+
+                <span class="btn-container">
+                  <button class="remove-btn">Remove Image</button>
+                  <button class="change-btn">Change Image</button>
+                </span>
+              </div>
+              <p class="drag-text">Drag and drop or click to upload</p>
+            </label>
+            <div class="warning-text">
+              <div class="size-warning">
+                <img
+                  src="./assets/images/icon-info.svg"
+                  alt="icon-info"
+                /><small
+                  >Upload your photo (JPG or PNG, max size: 500KB).</small
+                >
+              </div>
+              <div class="error">
+                <img
+                  src="./assets/images/icon-info.svg"
+                  alt="icon-info"
+                /><small
+                  >File too large. Please upload a photo under 500KB.</small
+                >
+              </div>
+            </div>
+          </div>
+
+          <label for="full-name">Full Name</label>
+          <input type="text" id="full-name" name="full-name" />
+          <small class="error-warning">Full name is required</small>
+
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" />
+          <small class="error-warning">Please enter a valid email address</small>
+
+          <label for="github-username">GitHub Username</label>
+          <input type="text" id="github-username" name="github-username" />
+          <small class="error-warning">Username is required</small>
+
+          <button type="submit" id="submit-btn">Generate My Ticket</button>
+        </form>
+      </section>
+      <section class="second-section">
+        <h2>
+          Congrats, <span class="nameValue">Jonathan Kristof</span>! Your ticket
+          is ready.
+        </h2>
+        <p class="notify">
+          We've emailed your ticket to
+          <span class="emailValue">Jonathan@email.com</span> and will send
+          updates in the run up to the event
+        </p>
+        <div class="ticket">
+          <img src="./assets/images/pattern-ticket.svg" alt="ticket" />
+
+          <div class="ticket-content">
+            <div class="first-part">
+              <div class="logo">
+                <img src="./assets/images/logo-full.svg" alt="logo" />
+              </div>
+                <p class="time"><span class="dot">Jan 31, 2025</span> / Austin, TX</p>
+
+                <div class="personal">
+                  <img class="avatar" src="./assets/images/image-avatar.jpg" alt="avatar">
+                  <span class="info">
+                    <p class="name">Jonatan Kristof</p>
+                    <p class="github">
+                      <img src="./assets/images/icon-github.svg" alt="icon-github">@<span class="githubUsernameValue">Jonatankristof0101</span>
+                    </p>
+                  </span>
+                </div>
+            </div>
+            <div class="second-part">
+              <p class="ticket-number">#01609</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
