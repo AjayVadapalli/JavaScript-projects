@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App 🚀</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            transition: background 0.5s, color 0.5s;
+            overflow: hidden;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #000000, #434343);
+            color: #ddd;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .note {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.2);
+            color: black;
+            padding: 12px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .note:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .dark-mode .note {
+            background: rgba(50, 50, 50, 0.8);
+            color: white;
+        }
+        .important {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: black;
+        }
+        button {
+            padding: 12px 18px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            background: #ff4081;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0px 5px 15px rgba(255, 64, 129, 0.4);
+        }
+        button:hover {
+            background: #e73370;
+            transform: scale(1.1);
+        }
+        #toggleDarkMode {
+            background: #00c853;
+        }
+        #toggleDarkMode:hover {
+            background: #009624;
+        }
+        input {
+            padding: 12px;
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🚀 Super Notes App</h2>
+        <button id="toggleDarkMode">🌙 Toggle Dark Mode</button>
+        <br><br>
+        <input type="text" id="searchInput" placeholder="🔍 Search notes...">  
+        <input type="text" id="noteInput" placeholder="✍️ Enter your note">
+        <button id="addNoteBtn">➕ Add Note</button>
+        <div id="notesContainer"></div>
+    </div>
+    <script>
+        const noteInput = document.getElementById("noteInput");
+        const addNoteBtn = document.getElementById("addNoteBtn");
+        const notesContainer = document.getElementById("notesContainer");
+        const searchInput = document.getElementById("searchInput");
+        const toggleDarkMode = document.getElementById("toggleDarkMode");
+
+        function loadNotes() {
+            const savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
+            savedNotes.forEach(note => createNote(note.text, note.important));
+            if (localStorage.getItem("darkMode") === "enabled") {
+                document.body.classList.add("dark-mode");
+            }
+        }
+
+        function createNote(text, isImportant = false) {
+            const noteDiv = document.createElement("div");
+            noteDiv.classList.add("note");
+            if (isImportant) noteDiv.classList.add("important");
+
+            const noteText = document.createElement("span");
+            noteText.contentEditable = true;
+            noteText.innerText = text;
+            noteText.addEventListener("input", saveNotes);
+            noteDiv.appendChild(noteText);
+
+            const importantBtn = document.createElement("button");
+            importantBtn.innerText = "⭐";
+            importantBtn.addEventListener("click", function() {
+                noteDiv.classList.toggle("important");
+                saveNotes();
+            });
+            noteDiv.appendChild(importantBtn);
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.innerText = "❌";
+            deleteBtn.addEventListener("click", function() {
+                noteDiv.remove();
+                saveNotes();
+            });
+            noteDiv.appendChild(deleteBtn);
+
+            notesContainer.appendChild(noteDiv);
+            saveNotes();
+        }
+
+        function saveNotes() {
+            const notes = [];
+            document.querySelectorAll(".note").forEach(note => {
+                notes.push({
+                    text: note.querySelector("span").innerText,
+                    important: note.classList.contains("important")
+                });
+            });
+            localStorage.setItem("notes", JSON.stringify(notes));
+        }
+
+        addNoteBtn.addEventListener("click", function() {
+            const noteText = noteInput.value.trim();
+            if (noteText !== "") {
+                createNote(noteText);
+                noteInput.value = "";
+            }
+        });
+
+        searchInput.addEventListener("input", function() {
+            const searchText = searchInput.value.toLowerCase();
+            document.querySelectorAll(".note").forEach(note => {
+                const noteText = note.querySelector("span").innerText.toLowerCase();
+                note.style.display = noteText.includes(searchText) ? "flex" : "none";
+            });
+        });
+
+        toggleDarkMode.addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("darkMode", document.body.classList.contains("dark-mode") ? "enabled" : "disabled");
+        });
+
+        loadNotes();
+    </script>
+</body>
+</html>
