@@ -19,3 +19,5 @@ https://ajayvadapalli.github.io/JavaScript-projects/conference-ticket-generator-
 https://ajayvadapalli.github.io/JavaScript-projects/interactive-rating-component-main
 
 https://ajayvadapalli.github.io/JavaScript-projects/math-quiz-project
+
+https://ajayvadapalli.github.io/JavaScript-projects/Simon-Game
